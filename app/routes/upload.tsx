@@ -58,9 +58,11 @@ const upload = () => {
         jobDescription,
         feedback: '',
       }
+      console.log(data)
+
 
       await kv.set(`resume:${uuid}`, JSON.stringify(data));
-
+      console.log('set the data in kv store');
       setStatusText('analyzing resume...');
 
       const feedback = await ai.feedback(
@@ -81,8 +83,8 @@ const upload = () => {
       await kv.set(`resume:${uuid}`, JSON.stringify(data));
       setStatusText('analysis complete! redirecting...');
 
-      console.log(data);
-      //navigate(`/result/${uuid}`);
+      //console.log(data);
+      navigate(`/resume/${uuid}`);
     } catch (error) {
       setStatusText(`error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`);
       setIsProcessing(false);
